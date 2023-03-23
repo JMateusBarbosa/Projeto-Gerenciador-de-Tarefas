@@ -1,13 +1,15 @@
 package gerenciador.de.tarefas.models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
+import gerenciador.de.tarefas.models.enums.Tipotarefa;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +19,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 
+@Entity
 public class Tarefa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -24,34 +27,45 @@ public class Tarefa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	@NotBlank(message = "Descrição é obrigatório")
-	private String descricao;	
+	private String descricao;
+	@NotNull(message = "Data final da entrega é obrigatório")
+	private LocalDate dataFinalDaEntrega;
+	private LocalDate dataEntrega;
+	
 	private String observacao;
 	
-	
+	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Tipo é obrigatório")
+	private Tipotarefa tipo;
 	
 	@NotNull(message = "Categoria é obrigatório")
 	@ManyToOne
 	@JoinColumn(name="codigo_categoria")
 	private Categoria categoria;
 
-	@JsonIgnoreProperties({"usuario","ativo"})
-	@NotNull(message = "Usuario é obrigatório")
+	@JsonIgnoreProperties({"endereco","ativo"})
+	@NotNull(message = "Pessoa é obrigatório")
 	@ManyToOne
 	@JoinColumn(name="codigo_pessoa")
 	private Usuario usuario;
 
 	public Tarefa() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public Tarefa(Long codigo, @NotBlank(message = "Descrição é obrigatório") String descricao, String observacao,
+	public Tarefa(Long codigo, @NotBlank(message = "Descrição é obrigatório") String descricao,
+			@NotNull(message = "Data final da entrega é obrigatório") LocalDate dataFinalDaEntrega,
+			LocalDate dataEntrega, String observacao, @NotNull(message = "Tipo é obrigatório") Tipotarefa tipo,
 			@NotNull(message = "Categoria é obrigatório") Categoria categoria,
-			@NotNull(message = "Usuario é obrigatório") Usuario usuario) {
+			@NotNull(message = "Pessoa é obrigatório") Usuario usuario) {
 		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
+		this.dataFinalDaEntrega = dataFinalDaEntrega;
+		this.dataEntrega = dataEntrega;
 		this.observacao = observacao;
+		this.tipo = tipo;
 		this.categoria = categoria;
 		this.usuario = usuario;
 	}
@@ -72,12 +86,36 @@ public class Tarefa implements Serializable {
 		this.descricao = descricao;
 	}
 
+	public LocalDate getDataFinalDaEntrega() {
+		return dataFinalDaEntrega;
+	}
+
+	public void setDataFinalDaEntrega(LocalDate dataFinalDaEntrega) {
+		this.dataFinalDaEntrega = dataFinalDaEntrega;
+	}
+
+	public LocalDate getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public void setDataEntrega(LocalDate dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+
 	public String getObservacao() {
 		return observacao;
 	}
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public Tipotarefa getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipotarefa tipo) {
+		this.tipo = tipo;
 	}
 
 	public Categoria getCategoria() {
@@ -102,7 +140,7 @@ public class Tarefa implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(categoria, codigo, descricao, observacao, usuario);
+		return Objects.hash(codigo);
 	}
 
 	@Override
@@ -114,10 +152,8 @@ public class Tarefa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Tarefa other = (Tarefa) obj;
-		return Objects.equals(categoria, other.categoria) && Objects.equals(codigo, other.codigo)
-				&& Objects.equals(descricao, other.descricao) && Objects.equals(observacao, other.observacao)
-				&& Objects.equals(usuario, other.usuario);
-	} 
-
+		return Objects.equals(codigo, other.codigo);
+	}
+	
 	
 }
