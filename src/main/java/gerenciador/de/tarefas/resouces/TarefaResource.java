@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ public class TarefaResource {
 	
 
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_TAREFA') and hasAuthority('SCOPE_write')")
 	public ResponseEntity<Tarefa> criar(@Valid @RequestBody Tarefa Tarefa) {
 		Tarefa TarefaSalva = TarefaService.criar(Tarefa);
 
@@ -43,6 +45,7 @@ public class TarefaResource {
 	}
 
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_TAREFA') and hasAuthority('SCOPE_read')" )
 	public ResponseEntity<Page<ResumoTarefaDto>> resumir(TarefaFilter TarefaFilter,
 			Pageable pageable) {
 		Page<ResumoTarefaDto> resumos = TarefaService.resumir(TarefaFilter, pageable);
@@ -50,18 +53,21 @@ public class TarefaResource {
 	}
 
 	@GetMapping(value = "/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_TAREFA') and hasAuthority('SCOPE_read')" )
 	public ResponseEntity<Tarefa> buscarPorCodigo(@PathVariable Long codigo) {
 		Tarefa Tarefa = TarefaService.buscarPorCodigo(codigo);
 		return ResponseEntity.ok().body(Tarefa);
 	}
 
 	@DeleteMapping(value = "/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_TAREFA') and hasAuthority('SCOPE_write')")
 	public ResponseEntity<Void> excluir(@PathVariable Long codigo) {
 		TarefaService.excluir(codigo);
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping(value = "/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_ATUALIZAR_TAREFA') and hasAuthority('SCOPE_write')")
 	public ResponseEntity<Tarefa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Tarefa Tarefa) {
 		Tarefa TarefaSalva = TarefaService.atualizar(codigo, Tarefa);
 		return ResponseEntity.ok().body(TarefaSalva);

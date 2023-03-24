@@ -84,4 +84,7 @@ public class Usuario implements Serializable {
 		return Objects.equals(codigo, other.codigo);
 	}
 
-}
+	
+	}
+
+

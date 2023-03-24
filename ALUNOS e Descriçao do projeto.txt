@@ -1,0 +1,10 @@
+INTEGRANTES DO GRUPO:
+1. João mateus barbosa - 1929040031
+2. Christiano - 1929040006
+3. Suzyane - 1929040025
+4. Railene -
+
+Descrição: Este projeto tem como objetivo 
+criar uma lista de tarefas para um usuario,
+onde cada tarefa tem sua categoria e periodo de 
+entrega.

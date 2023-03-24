@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "name": "pagamentosapi",
+      "type": "gerenciador.de.tarefas.config.ApiProperty",
+      "sourceType": "gerenciador.de.tarefas.config.ApiProperty"
+    },
+    {
+      "name": "pagamentosapi.seguranca",
+      "type": "gerenciador.de.tarefas.config.ApiProperty$Seguranca",
+      "sourceType": "gerenciador.de.tarefas.config.ApiProperty",
+      "sourceMethod": "public gerenciador.de.tarefas.config.ApiProperty.Seguranca getSeguranca() "
+    }
+  ],
+  "properties": [
+    {
+      "name": "pagamentosapi.origin-permitida",
+      "type": "java.lang.String",
+      "sourceType": "gerenciador.de.tarefas.config.ApiProperty"
+    },
+    {
+      "name": "pagamentosapi.seguranca.auth-server-url",
+      "type": "java.lang.String",
+      "sourceType": "gerenciador.de.tarefas.config.ApiProperty$Seguranca"
+    },
+    {
+      "name": "pagamentosapi.seguranca.redirects-permitidos",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "gerenciador.de.tarefas.config.ApiProperty$Seguranca"
+    }
+  ],
+  "hints": []
+}
