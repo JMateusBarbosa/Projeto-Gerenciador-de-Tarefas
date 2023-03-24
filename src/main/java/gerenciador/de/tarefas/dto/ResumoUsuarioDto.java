@@ -1,15 +1,15 @@
 package gerenciador.de.tarefas.dto;
 
-public class ResumoUsuario {
+public class ResumoUsuarioDto {
 
 	private Long codigo;
     private String nome;
     private Boolean ativo;
-	public ResumoUsuario() {
+	public ResumoUsuarioDto() {
 		super();
 		
 	}
-	public ResumoUsuario(Long codigo, String nome, Boolean ativo) {
+	public ResumoUsuarioDto(Long codigo, String nome, Boolean ativo) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;

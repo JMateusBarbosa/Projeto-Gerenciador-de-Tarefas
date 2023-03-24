@@ -15,11 +15,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 
 @Entity
+@Table(name = "tarefa")
 public class Tarefa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -43,10 +45,10 @@ public class Tarefa implements Serializable {
 	@JoinColumn(name="codigo_categoria")
 	private Categoria categoria;
 
-	@JsonIgnoreProperties({"endereco","ativo"})
-	@NotNull(message = "Pessoa é obrigatório")
+	
+	@NotNull(message = "Usuario é obrigatório")
 	@ManyToOne
-	@JoinColumn(name="codigo_pessoa")
+	@JoinColumn(name="codigo_usuario")
 	private Usuario usuario;
 
 	public Tarefa() {
@@ -58,7 +60,7 @@ public class Tarefa implements Serializable {
 			@NotNull(message = "Data final da entrega é obrigatório") LocalDate dataFinalDaEntrega,
 			LocalDate dataEntrega, String observacao, @NotNull(message = "Tipo é obrigatório") Tipotarefa tipo,
 			@NotNull(message = "Categoria é obrigatório") Categoria categoria,
-			@NotNull(message = "Pessoa é obrigatório") Usuario usuario) {
+			@NotNull(message = "Usuario é obrigatório") Usuario usuario) {
 		super();
 		this.codigo = codigo;
 		this.descricao = descricao;

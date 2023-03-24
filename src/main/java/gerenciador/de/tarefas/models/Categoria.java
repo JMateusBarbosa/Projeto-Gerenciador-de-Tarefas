@@ -21,8 +21,8 @@ public class Categoria implements Serializable {
 	private Long codigo;
 	
 	@NotBlank(message = "Nome é obrigatório")
-	@Size(min=3, max=20, message = "Nome deve ter"
-			+ " tamnho entre 3 e 20")
+	@Size(min=3, max=50, message = "Nome deve ter"
+			+ " tamnho entre 3 e 50")
 	private String nome;
 
 	public Categoria() {
